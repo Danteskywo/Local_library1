@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <h1>Все книги! </h1>
+    {{books_all}}
+    <p>Вы посетили страницу, Книги {{num_visits_book}}{% if num_visits_book == 1 %} time{% else %}times{% endif %}</p>
+    {% endblock %}
+</body>
+</html>

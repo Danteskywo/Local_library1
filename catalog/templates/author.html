@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    {% block title %}<title>Local Library</title>{% endblock %}
+</head>
+<body>
+{% block content %}
+<h1>Список книг</h1>
+
+{% if author_list %}
+<ul>
+    {% for author in author_list %}
+    <li>
+        {{ author.first_name }} {{ author.last_name }}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>В библиотеке нет книг!</p>
+{% endif %}
+{% endblock %}
+</body>
+</html>

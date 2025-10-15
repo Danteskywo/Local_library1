@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+{% block title %}<title>Главная Индекса</title>{% endblock %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+    
+</head>
+<body>
+    {% block content %}
+  <h1>Local Library Home</h1>
+<p>добрпо пожаловать<em>LocalLibrary</em>, Это очень простой веб-сайт на Django, разработанный в качестве учебного примера</p>
+
+<h2>Наполнение библиотеки! </h2>
+
+  <p>В библиотеке зарегистрировано следующее количество записей:</p>
+  <ul>
+    <li><strong>Всего книг:</strong> {{ num_books }}</li>
+    <li><strong>Книги с описанием:</strong> {{ num_instances }}</li>
+    <li><strong>Доступные книги:</strong> {{ num_instances_available }}</li>
+    <li><strong>Авторы:</strong> {{ num_authors }}</li>
+    <li><strong>Жанры:</strong> {{ num_genre }}</li>
+    <li><strong></li>
+  </ul>
+  <p>Вы посетили страницу {{num_visits}}{% if num_visits == 1 %} time{% else %}times{% endif %}</p>
+{% endblock %}
+</body>
+</html>
