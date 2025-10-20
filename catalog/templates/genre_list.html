@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/genre.css' %}" />
+    {% block title %}<title>Жанры книг:</title>{% endblock %}
+</head>
+<body>
+        {% block content %}
+            <h1>Список жанров:</h1>
+
+            {% if genre_all %}
+            <ul>
+                {% for genre in genre_all %}
+                <li>
+                    {{ genre.name }} 
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>В библиотеке нет книг!</p>
+            {% endif %}
+                <p>Вы посетили страницу {{num_visits_genre}}{% if num_visits_genre == 1 %} time{% else %}times{% endif %}</p>
+    {% endblock %}
+</body>
+</html>

@@ -5,18 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    {% block title %}<title>Books - Local Library</title>{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/book_list.css' %}" />
+    <title>Document</title>
 </head>
 <body>
-        {% comment %} {% block content %}
+        {% block content %}
     <h1>Все книги</h1>
 
     {% if books_all %}
     <ul>
         {% for book in books_all %}
         <li>
-            <strong>{{ book.title }}</strong> Автор:{{ book.author }} Жанр:{{ book.genre }}
+            <a href="/catalog/book/{{ book.id }}/">{{ book.title }}</a> <p>Автор:{{ book.author }} Жанр:{{ book.genre }}</p>
       </li>
         </li>
         {% endfor %}
@@ -25,7 +25,7 @@
     <p>В библиотеке нет книг!</p>
     {% endif %}
 
-    <p>Вы посетили страницу "Книги" {{ num_visits_book }}{% if num_visits_book == 1 %} раз{% else %} раз{% endif %}</p>
-    {% endblock %} {% endcomment %}
+    <p>Вы посетили страницу "Книги" {{ num_visits_book }}{% if num_visits_book == 1 %} Time:{% else %} Times{% endif %}</p>
+    {% endblock %}
 </body>
 </html>

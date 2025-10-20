@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Детали:</title>{% endblock %}
+</head>
+<body>
+    {% block content %}
+    <h1>Название: {{book.title}}</h1>
+    <p>Автор:{{book.author}}</p>
+    <p>Количество книг у Автора:{{book.sumAuthor}}</p>
+    <p>ISBN:{{book.isbn}}</p>
+    <p>Перевод:{{book.language}}</p>
+    <p>Жанр:{% for genre in book.genre.all %}
+        {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}
+    </p>
+    
+    <div style="margin-left:20px;margin-top:20px">
+    <h4>Копия:</h4>
+    {% for copy in book.bookinstance_set_all %}
+        <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}
+        text-danger{% else %}
+        text-warning{% endif %}">
+        {{ copy.get_status_display }}</p>
+        <p class="text-muted"><strong>Id:</strong> {{copy.id}}</p>
+    
+    {% endfor %}
+    </div>
+    {% endblock %}
+</body>
+</html>

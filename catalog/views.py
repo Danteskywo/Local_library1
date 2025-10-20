@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Book, BookInstance, Author, Genre
+from django.views import generic
 
 
 
@@ -55,17 +56,63 @@ def author(request):
 #     })
 
 
-def books(request):
+def books_list(request):
     books_all = Book.objects.all()
     books_all = list(books_all)
-    books_str = ', '.join([book.title for book in books_all])
     num_visits_book = request.session.get('num_visits_book', 0)
     request.session['num_visits_book'] = num_visits_book+1
     return render(
-        request, "books.html",
+        request, "book_list.html",
           context={'num_visits_book':num_visits_book,
-                   'books_all':books_str,
+                   'books_all':books_all,
                    
                    })
 
 
+class BookListView(generic.ListView):
+    model = Book
+    context_object_name = 'book_list'
+    queryset = Book.objects.all()
+    template_name = 'book_list.html'
+
+
+def genre_list(request):
+    genre_all = Genre.objects.all()
+    genre_all = list(genre_all)
+    num_visits_genre = request.session.get('num_visits_genre', 0)
+    request.session['num_visits_genre'] = num_visits_genre+1
+    return render(
+        request, "genre_list.html",
+          context={'num_visits_genre':num_visits_genre,
+                   'genre_all':genre_all,
+                   
+                   })
+
+class BookDetailView(generic.DetailView):
+    model = Book
+    template_name = 'catalog/book_detail.html'
+    context_object_name = 'book'
+
+    def get_context_data(self, **kwargs):
+        context = super.get_context_data(**kwargs)
+
+        book = self.get_object()
+        context['book_instances'] = BookInstance.objects.filter(book=book)
+        context['available_instances'] = BookInstance.objects.filter(
+            book=book, 
+            status__exact='a'
+        ).count()
+
+        return context
+from django.http import Http404    
+
+def book_detail_view(request, pk):
+    try:
+        book_id = Book.objects.get(pk=pk)
+    except Book.DoesNotExist:
+        raise Http404
+    return render(
+        request,
+        'catalog/book_detail.html',
+        context={'book':book_id,}
+    )

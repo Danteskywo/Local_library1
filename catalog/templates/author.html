@@ -10,13 +10,13 @@
 </head>
 <body>
 {% block content %}
-<h1>Список книг</h1>
+<h1>Список авторов:</h1>
 
 {% if author_list %}
 <ul>
     {% for author in author_list %}
     <li>
-        {{ author.first_name }} {{ author.last_name }}
+        {{ author.first_name }} {{ author.last_name }} Дата рождения:{{ author.date_of_birth }}Дата смерти:{{ date_of_death }}
     </li>
     {% endfor %}
 </ul>
