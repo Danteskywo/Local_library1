@@ -3,11 +3,30 @@
 from django.db import models
 from django.urls import reverse
 import uuid
-from django.db.models import UniqueConstraint #Уникальность ограничения
+from django.db.models import UniqueConstraint 
+#Уникальность ограничения
 from django.db.models.functions import Lower
+from django.contrib.auth.models import User
+from django.db import models
+from django.db.models.signals import post_save 
+ # Сигнал который отправляется после сохранения объекта в базу данных.
+from django.dispatch import receiver
+# Декоратор для регистрации функции-обработчика сигнала
 
 
 # Create your models here.
+class Profile(models.Model):
+    USER_ROLES=(
+        ('admin','Админ'),
+        ('librarian','Библиотекарь'),
+        ('guest','Гость'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=USER_ROLES, default='guest')
+
+    def __str__(self):
+        return (f'{self.user.username}-{self.role}')
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=100, help_text="Enter a book genre")

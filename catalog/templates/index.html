@@ -28,5 +28,17 @@
   </ul>
   <p>Вы посетили страницу {{num_visits}}{% if num_visits == 1 %} time{% else %}times{% endif %}</p>
 {% endblock %}
+
+{% if recently_viewed_books %}
+
+  <h2>Вы просматривали книги:</h2>
+  <ul>
+    {% for book in recently_viewed_books %}
+    <li><a href="{% url 'book_detail' book.pk %}">{{book.title}}</a>by:{{book.author}}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Такой книги </p>
+{% endif %}
 </body>
 </html>

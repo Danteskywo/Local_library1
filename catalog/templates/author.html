@@ -16,6 +16,7 @@
 <ul>
     {% for author in author_list %}
     <li>
+        {% comment %} <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a> {% endcomment %}
         {{ author.first_name }} {{ author.last_name }} Дата рождения:{{ author.date_of_birth }}Дата смерти:{{ date_of_death }}
     </li>
     {% endfor %}

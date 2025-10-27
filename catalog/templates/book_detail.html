@@ -20,7 +20,7 @@
     <div style="margin-left:20px;margin-top:20px">
     <h4>Копия:</h4>
     {% for copy in book.bookinstance_set_all %}
-        <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'd' %}
+        <p class="{% if copy.status == 'a' %}Статус книги:{% elif copy.status == 'd' %}
         text-danger{% else %}
         text-warning{% endif %}">
         {{ copy.get_status_display }}</p>
