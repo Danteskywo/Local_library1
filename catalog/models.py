@@ -13,6 +13,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Декоратор для регистрации функции-обработчика сигнала
 from django.conf import settings
+from datetime import date
 
 
 # Create your models here.
@@ -77,6 +78,7 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'На обслуживании'),
@@ -93,6 +95,11 @@ class BookInstance(models.Model):
 
     def __str__(self):
         return '%s (%s)' % (self.id, self.book.title)
+@property
+def is_overdue(self):
+    if self.due_back and date.today() > self.due_back:
+        return True
+    return False
 
 class Author(models.Model):
     first_name = models.CharField(max_length=30)
