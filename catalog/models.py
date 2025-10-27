@@ -12,6 +12,7 @@ from django.db.models.signals import post_save
  # Сигнал который отправляется после сохранения объекта в базу данных.
 from django.dispatch import receiver
 # Декоратор для регистрации функции-обработчика сигнала
+from django.conf import settings
 
 
 # Create your models here.

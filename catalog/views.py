@@ -1,11 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Book, BookInstance, Author, Genre
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
 
 
 
 
 # Create your views here.
+
+class MyView(LoginRequiredMixin, View):
+    def get(self, request):
+        # ваша логика для GET запроса
+        return render(request, 'template_name.html')
+    
+    def post(self, request):
+        # ваша логика для POST запроса
+        pass
+
+@login_required
 def index(request):
     """
     Функция отображения для домашней страницы сайта.
