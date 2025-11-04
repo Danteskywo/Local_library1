@@ -129,3 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_URl='login'
+SESSION_SAVE_EVERY_REQUEST = True  # Сохранять сессию при каждом запросе
+SESSION_COOKIE_AGE = 1209600  # Время жизни сессии (2 недели)

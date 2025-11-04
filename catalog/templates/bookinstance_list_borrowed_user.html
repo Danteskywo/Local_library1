@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Мои книги | Библиотека</title>{% endblock %}
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h1>Книги в пользовании:</h1>
+        {% if bookinstance_list %}
+            <ul>
+                {% for bookinst in bookinstance_list %}
+                    <li class='{% if bookinst.is_overdue %}text-danger{% endif %}'>
+                        <a href="{% url 'catalog:book-detail' bookinst.book.pk %}">
+                            {{bookinst.book.title}}</a>({{bookinst.due_back}})
+                        
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>Книг в пользовании не нашлось!</p>
+        {% endif %}
+    {% endblock %}
+    </div>
+</body>
+</html>

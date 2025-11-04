@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base_generic.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>all_borrowed_books!</title>{% endblock %}
+</head>
+<body>
+    {% block content %}
+        <h1>Книги взятые для чтения!</h1>
+        {% if borrowed_books %}
+            <ul>
+                {% for bookinst in borrowed_books %}
+                    <li class ="{% if bookinst.is_overdue %} text-danger{% endif %}">
+                        <a href="{% url 'book-detail' bookinst.book.pk %}">
+                            {{bookinst.book.title}}
+                        </a>
+                        ({{bookinst.due_back}}) - 
+                        <strong>Заемщик:</strong> {{ bookinst.borrower.get_full_name|default:bookinst.borrower.username }}
+          {% if perms.catalog.can_mark_returned %}
+            - <a href="{% url 'renew-book-librarian' bookinst.id %}">Продлить</a>
+            {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Все книги в библиотеке!</p>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

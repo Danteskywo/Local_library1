@@ -15,7 +15,17 @@ urlpatterns = [
     re_path(r'^book/(?P<pk>\d+)$', views.BookListView.as_view(), name='books'),
     # re_path(r'^book/(?P<pk>\d+)$', views.BookDetailView.as_view(), name='book-detail'),
     path('book/<int:pk>/', views.BookDetailView.as_view(), name='book-detail'),
+    path('my-view', views.MyView.as_view(), name='my-view'),
+    re_path(r'^book/(?P<pk>[-\w]+)/renew/$',
+            views.renew_book_librarian,
+            name= 'renewal-book-librarian'),
+    re_path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+    path('all-borrowed/', views.AllBorrowedBooksListView.as_view(), name='all-borrowed'),
 ]
+# urlpatterns += [
+#     re_path(r'^mybooks/$', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+# ]
+
 
 # urlpatterns += [
 #     path('books/year/<int:year>/', views.books_list_year, name='books_list_year'),
